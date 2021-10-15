@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: EntityConfig_001
   m_EditorClassIdentifier: 
   id: 1
-  name: "\u5F20\u98DE"
-  hp: 1000
-  skillID: 0000000001000000
+  name: "\u5C06\u98861"
+  hp: 300
+  speed: 50
+  attTime: 1
+  skillID: 0200000001000000

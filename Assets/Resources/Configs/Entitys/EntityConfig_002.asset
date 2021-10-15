@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfa4f541df8f694eab8d5bcb5c5ab61, type: 3}
   m_Name: EntityConfig_002
   m_EditorClassIdentifier: 
-  id: 1
-  name: "\u8D75\u4E91"
-  hp: 1500
-  skillID: 0000000001000000
+  id: 2
+  name: "\u5C06\u98862"
+  hp: 300
+  speed: 100
+  attTime: 1
+  skillID: 0100000002000000

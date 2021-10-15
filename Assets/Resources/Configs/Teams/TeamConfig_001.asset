@@ -15,5 +15,7 @@ MonoBehaviour:
   id: 1
   entityConfigA:
   - {fileID: 11400000, guid: 00da2c288a3f3a349a2796947a0c1dd4, type: 2}
-  entityConfigB:
   - {fileID: 11400000, guid: 270016b493b65a142bc6e26342998708, type: 2}
+  entityConfigB:
+  - {fileID: 11400000, guid: 95269d6f92c6f9b45bc6f7aedfaa1f71, type: 2}
+  - {fileID: 11400000, guid: a90b3079c3fb4174faf5542e1fcd4ada, type: 2}

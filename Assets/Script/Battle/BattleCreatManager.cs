@@ -10,6 +10,8 @@ public class BattleCreatManager : MonoBehaviour
     public GameObject entityPrefab;
     public GameObject parentPrefab;
     public SkillConfig[] skillConfigList;
+    public Entity[] heros;
+    public Entity[] enemys;
     private List<GameObject> allEntity;
 
     private static List<SkillConfig> skillConfigs;
@@ -21,7 +23,35 @@ public class BattleCreatManager : MonoBehaviour
     }
     public List<Entity> CreatEntitys(bool isHero , List<EntityConfig> list)
     {
-        return new List<Entity>();
+        List<Entity> arry = new List<Entity>();
+        Entity ety = null;
+        int index = 0;
+        foreach (EntityConfig ec in list)
+        {
+            if (isHero)
+            {
+                //ety = GameObject.Instantiate(entityPrefab).AddComponent<Hero>();
+                ety = heros[index];
+            }
+            else
+            {
+                ety = enemys[index];
+                //ety = GameObject.Instantiate(entityPrefab).AddComponent<Enemy>();
+            }
+            ety.gameObject.SetActive(true);
+            //ety.gameObject.transform.parent = parentPrefab.transform;
+            ety.hp = ety.hpMax = ec.hp;
+            ety.name = ec.name;
+            ety.id = ec.id;
+            ety.attackSpeed = ec.speed;
+            ety.attTime = ec.attTime;
+            ety.skillIDs = ec.skillID.ToList();
+            ety.state = EntityState.IDLE;
+            arry.Add(ety);
+            index++;
+        }
+
+        return arry;
     }
 
     public void DestoryAll()

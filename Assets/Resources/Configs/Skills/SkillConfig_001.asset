@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: SkillConfig_001
   m_EditorClassIdentifier: 
   id: 1
-  name: "\u62F3\u6253\u811A\u8E22"
+  name: "\u6280\u80FD1"
   attType: 1
+  targetType: 0
+  hurt: 100

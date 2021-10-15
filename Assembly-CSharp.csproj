@@ -56,21 +56,25 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Battle\Config\EntityConfig.cs" />
-    <Compile Include="Assets\Script\Battle\Config\TeamConfig.cs" />
-    <Compile Include="Assets\Script\Battle\Config\BattlefieldConfig.cs" />
-    <Compile Include="Assets\Script\Battle\Config\SkillConfig.cs" />
-    <Compile Include="Assets\Script\Battle\Entity.cs" />
     <Compile Include="Assets\Script\Battle\FSM\FSM.cs" />
+    <Compile Include="Assets\Script\Battle\Config\TeamConfig.cs" />
+    <Compile Include="Assets\Script\Battle\Entity.cs" />
+    <Compile Include="Assets\Script\Battle\Config\SkillConfig.cs" />
     <Compile Include="Assets\Script\Battle\Battlefield.cs" />
-    <Compile Include="Assets\Script\Battle\Team.cs" />
-    <Compile Include="Assets\Script\Battle\SkillController.cs" />
-    <Compile Include="Assets\Script\Battle\BattleCreatManager.cs" />
     <Compile Include="Assets\Script\Battle\Enemy.cs" />
-    <Compile Include="Assets\Script\Battle\Hero.cs" />
-    <Compile Include="Assets\Script\Battle\Event\BattleEvent.cs" />
+    <Compile Include="Assets\Script\Battle\Config\EntityConfig.cs" />
+    <Compile Include="Assets\Script\Battle\Config\BattlefieldConfig.cs" />
     <Compile Include="Assets\Script\Battle\Modification.cs" />
+    <Compile Include="Assets\Script\Battle\Event\BattleEvent.cs" />
+    <Compile Include="Assets\Script\Battle\Team.cs" />
+    <Compile Include="Assets\Script\Battle\Hero.cs" />
+    <Compile Include="Assets\Script\Battle\BattleCreatManager.cs" />
     <Compile Include="Assets\Script\TestLv\TestTime.cs" />
+    <Compile Include="Assets\Script\Battle\SkillController.cs" />
+    <Compile Include="Assets\Script\Battle\UI\BattleUIView.cs" />
+    <Compile Include="Assets\Script\Battle\UI\SkillCell.cs" />
+    <Compile Include="Assets\Script\Battle\UI\HeroCell.cs" />
+    <Compile Include="Assets\Script\Battle\UI\RayCastHitControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

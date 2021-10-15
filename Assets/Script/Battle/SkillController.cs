@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 public enum SkillState 
 { 
-    Front,
-    Middle,
-    Later
+    FRONT,
+    MIDDLE,
+    LATER
 }
 
 public class SkillController : MonoBehaviour
@@ -25,8 +25,13 @@ public class SkillController : MonoBehaviour
         selfEntity = sEntity;
         enemys = selfEntity.enemys;
         skillConfig = BattleCreatManager.GetSkillConfig(skillID);
+
+        Debug.Log("Start Select Skill");
+        Debug.Log("skill Name:"+skillConfig.name);
+
         SeachTarget(enemyID);
         timeDel = Time.time;
+        attTime = selfEntity.attTime;
     }
 
     private void SeachTarget(int enemyID)
@@ -36,6 +41,7 @@ public class SkillController : MonoBehaviour
             Debug.Log("Enemy list == null");
             return;
         }
+        Debug.Log("Start Select Enemy");
         Entity enemy = null;
         foreach (Entity et in enemys)
         {
@@ -47,6 +53,8 @@ public class SkillController : MonoBehaviour
             enemy = SeachEnemyToSkillConfig();
         }
         target = enemy;
+
+        Debug.Log(" Enemy name:"+ target.name);
     }
 
     private Entity SeachEnemyToSkillConfig()
@@ -59,10 +67,10 @@ public class SkillController : MonoBehaviour
         Entity em = null;
         switch (skillConfig.targetType)
         {
-            case TargetSelectType.hpLeast:
+            case TargetSelectType.HPLEAST:
                 em = GetTargetHpLeast();
                 break;
-            case TargetSelectType.hpMax:
+            case TargetSelectType.HPMAX:
                 em = GetTargetHpMax();
                 break;
         }
@@ -118,6 +126,8 @@ public class SkillController : MonoBehaviour
 
     private void ChangeSelfEntityState()
     {
+        target.Damage(skillConfig.hurt);
+        Debug.Log(String.Format("{0} use {1} attack {2} , Damage:{3}", selfEntity.name, skillConfig.name,target.name, skillConfig.hurt));
         selfEntity.state = EntityState.IDLE;
     }
 }

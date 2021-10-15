@@ -7,13 +7,13 @@ using UnityEngine;
 
 public enum AttackType 
 { 
-     longRange,
-     shortRange,
+     LONGRANGE,
+     SHORTRANGE,
 }
 public enum TargetSelectType
 {
-    hpMax,
-    hpLeast,
+    HPMAX,
+    HPLEAST,
 }
 public class SkillConfig : ScriptableObject
 {
@@ -22,5 +22,4 @@ public class SkillConfig : ScriptableObject
     public AttackType attType;
     public TargetSelectType targetType;
     public int hurt;
-    public int attTime;
 }

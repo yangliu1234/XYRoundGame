@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public enum EntityState { 
     IDLE,
@@ -19,12 +20,36 @@ public class Entity:FSM<EntityState>
     public int attackSpeed;
     public int enemyID;
     public int skillID;
+    public int attTime;
     public List<int> skillIDs;
     public List<Entity> enemys;
     public SkillController skill;
+    private void Awake()
+    {
+        skill = this.gameObject.AddComponent<SkillController>();
+        stateChange += StateChangAction;
+    }
+
+    private void StateChangAction()
+    {
+        switch (state) 
+        {
+            case EntityState.IDLE:
+                Idle();
+                break;
+            case EntityState.ATTACK:
+                Attack();
+                break;
+            case EntityState.DIE:
+                Die();
+                break;
+        }
+    }
+
     public void Attack()
     {
         int sID = GetSkillID();
+        Debug.Log( "Cast skill Start");
         skill.CastSkill(this, sID, enemyID);
     }
 
@@ -43,7 +68,7 @@ public class Entity:FSM<EntityState>
 
     public void Idle()
     {
-        state = EntityState.IDLE;
+        
     }
     public void Damage(int dmNum)
     {
@@ -52,12 +77,12 @@ public class Entity:FSM<EntityState>
         else
         {
             hp = 0;
-            Die();
+            state = EntityState.DIE;
         }
     }
     public void Die()
     {
-        state = EntityState.DIE;
+        
     }
     public void OnSelectEntity()
     {

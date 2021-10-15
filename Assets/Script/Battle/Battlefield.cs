@@ -18,8 +18,9 @@ public class Battlefield : MonoBehaviour
     public BattlefieldConfig battlefieldConfig;
     public BattleCreatManager battleCreatManager;
     public Modification modification;
+    public BattleUIView bUIView;
 
-    private PrewarState state = PrewarState.NONE;
+    public PrewarState state = PrewarState.NONE;
     private PrewarState lastState = PrewarState.NONE;
     private int psTime;
     private int nowPSTime;
@@ -36,9 +37,18 @@ public class Battlefield : MonoBehaviour
         psTime = battlefieldConfig.time;
         List<Entity> heros = battleCreatManager.CreatEntitys(true, battlefieldConfig.teamConfig.entityConfigA);
         List<Entity> enemys = battleCreatManager.CreatEntitys(false, battlefieldConfig.teamConfig.entityConfigB);
+        SetEmemy(heros, enemys);
+        SetEmemy(enemys, heros);
         team.Initialize(heros, enemys);
         team.nextRound += NextRoundEvent;
         BattleEvent.readyAction += ReadActionEvent;
+        bUIView.UpdateUIView(heros, enemys);
+    }
+
+    private void SetEmemy(List<Entity> heros, List<Entity> enemys)
+    {
+        foreach (Entity et in heros)
+            et.enemys = enemys;
     }
 
     private void ReadActionEvent(bool obj)
@@ -50,11 +60,21 @@ public class Battlefield : MonoBehaviour
     private void NextRoundEvent()
     {
         state = PrewarState.START;
+        Debug.Log("Battle Next Round Select Start !!!");
 
     }
     private void StarRound()
     {
-        nowPSTime = 0;
+        Debug.Log("===========  End Prewar ===========");
+
+        Debug.Log("========================  Battle Round Start!!!!!!!   =====================");
+        if (nowPSTime > 0)
+        {
+            nowPSTime = 0;
+            if (BattleEvent.prewarAction != null)
+                BattleEvent.prewarAction(nowPSTime);
+        }
+        
         state = PrewarState.NONE;
         team.StarRound(modification.skillPool, modification.enemyPool);
     }
@@ -62,6 +82,7 @@ public class Battlefield : MonoBehaviour
     {
         if (BattleEvent.prewarAction != null)
             BattleEvent.prewarAction(nowPSTime);
+        Debug.Log("Battle Start Await Time :" + (nowPSTime));
         if(nowPSTime < 1)
             state = PrewarState.END;
     }
@@ -87,8 +108,10 @@ public class Battlefield : MonoBehaviour
 
     private void SetPrewarTime()
     {
+        Debug.Log("===========  Enter Prewar===========");
         nowPSTime = psTime;
         timeDel = Time.time;
+        RefreshPrewarTime();
         state = PrewarState.CONTROLLER;
     }
 
@@ -109,5 +132,6 @@ public class Battlefield : MonoBehaviour
         battleCreatManager.DestoryAll();
         team.nextRound -= NextRoundEvent;
         BattleEvent.readyAction -= ReadActionEvent;
+        //TODO  Team Modification BattleCreatManager
     }
 }

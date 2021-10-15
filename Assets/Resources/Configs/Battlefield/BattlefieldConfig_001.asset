@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BattlefieldConfig_001
   m_EditorClassIdentifier: 
   id: 1
-  time: 30
+  time: 15
   teamConfig: {fileID: 11400000, guid: 4c071229b62223c4ea514c4753e20a76, type: 2}

@@ -10,12 +10,11 @@ public class Team : MonoBehaviour
     public delegate void NextRoundEvent();
     public event Action nextRound;
 
-    private List<Entity> heros;
-    private List<Entity> enemys;
+    public List<Entity> heros;
+    public List<Entity> enemys;
     private List<Entity> allEntity;
     private Entity nowAttEntity;
     private int index;
-    private Entity nowEntity;
     private Dictionary<int, Entity> dicAllEntitys;
 
     public void Initialize(List<Entity> hlist,List<Entity> elist)
@@ -41,7 +40,7 @@ public class Team : MonoBehaviour
 
     private void OnEntityStateChange()
     {
-        if (nowAttEntity.state == EntityState.ATTACK) return;
+        if (nowAttEntity ==null || (nowAttEntity.state == EntityState.ATTACK)) return;
         index = index + 1;
         if (index < allEntity.Count)
         {
@@ -49,9 +48,13 @@ public class Team : MonoBehaviour
         }
         else 
         {
-            ClearModificationData();
-            CheckoutResult();
+            RoundEnd();
         }
+    }
+    private void RoundEnd()
+    {
+        ClearModificationData();
+        CheckoutResult();
     }
 
     private void SetAllEntitysDic()
@@ -64,6 +67,7 @@ public class Team : MonoBehaviour
 
     public void StarRound(List<SelectEntityData> sPool,List<SelectEntityData> ePool)
     {
+        Debug.Log("Enter Team");
         SetSelectEntityData(sPool,ePool);
         UpdateEntityRank();
         index = 0;
@@ -71,6 +75,7 @@ public class Team : MonoBehaviour
     }
     private void SeachAttEntity()
     {
+        nowAttEntity = null;
         int count = allEntity.Count;
         for (int i = 0; i < count; i++)
         {
@@ -78,10 +83,18 @@ public class Team : MonoBehaviour
             {
                 index = i;
                 nowAttEntity = allEntity[i];
-                return;
+                break;
             }
         }
-        nowAttEntity.Attack();
+        if (nowAttEntity == null)
+        {
+            RoundEnd();
+            return;
+        }
+
+        Debug.Log("Name:" + nowAttEntity.name +"  =============Round================");
+        Debug.Log("nowAttEntity state: " + nowAttEntity.state.ToString() + " lastState:" + nowAttEntity.lastState.ToString());
+        nowAttEntity.state = EntityState.ATTACK;
     }
 
     private void SetSelectEntityData(List<SelectEntityData> sPool, List<SelectEntityData> ePool)
@@ -104,7 +117,7 @@ public class Team : MonoBehaviour
 
     private int AllEntityRank(Entity x, Entity y)
     {
-        return (x.attackSpeed > y.attackSpeed) ? 1 : -1;
+        return (x.attackSpeed > y.attackSpeed) ? -1 : 1;
     }
 
     private void ClearModificationData()
@@ -134,24 +147,24 @@ public class Team : MonoBehaviour
             if (et.state != EntityState.DIE)
             {
                 mark = mark | 1;
-                return;
+                break;
             }
         }
+
         if (mark == 0)
         {
             Debug.Log("平局");
         }
-        else if (mark == 1)
+        else if (mark == 2)
         {
             Debug.Log("胜利");
         }
-        else if (mark == 2)
+        else if (mark == 1)
         {
             Debug.Log("失败");
         }
         else if (mark == 3)
         {
-            Debug.Log("Next Round");
             if (nextRound != null)
                 nextRound();
         }
